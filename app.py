@@ -107,25 +107,24 @@ if st.button("Predict"):
     else:
         st.success("✅ Low Risk of Heart Disease")
 
-    # Generate PDF
     pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    pdf.cell(200, 10, txt=f"Heart Disease Prediction Report", ln=1, align='C')
-    pdf.cell(200, 10, txt=f"Patient Name: {name}", ln=2)
-    pdf.cell(200, 10, txt=f"Model Used: {selected_model_name}", ln=3)
-    pdf.cell(200, 10, txt=f"Prediction: {result_text}", ln=4)
+pdf.add_page()
+pdf.set_font("Arial", size=12)
+pdf.cell(200, 10, txt=f"Heart Disease Prediction Report", ln=1, align='C')
+pdf.cell(200, 10, txt=f"Patient Name: {name}", ln=2)
+pdf.cell(200, 10, txt=f"Model Used: {selected_model_name}", ln=3)
+pdf.cell(200, 10, txt=f"Prediction: {result_text}", ln=4)
 
-    for key, value in input_dict.items():
-        pdf.cell(200, 10, txt=f"{key}: {value}", ln=1)
+for key, value in input_dict.items():
+    pdf.cell(200, 10, txt=f"{key}: {value}", ln=1)
 
-    buffer = BytesIO()
-    pdf.output(buffer)
-    buffer.seek(0)
+pdf_bytes = pdf.output(dest='S').encode('latin1')
+buffer = BytesIO(pdf_bytes)
+buffer.seek(0)
 
-    st.download_button(
-        label="📥 Download Report (PDF)",
-        data=buffer,
-        file_name=f"{name.replace(' ', '_')}_prediction.pdf",
-        mime="application/pdf"
-    )
+st.download_button(
+    label="📥 Download Report (PDF)",
+    data=buffer,
+    file_name=f"{name.replace(' ', '_')}_prediction.pdf",
+    mime="application/pdf"
+)
