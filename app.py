@@ -93,7 +93,7 @@ if st.button("Predict"):
         INSERT INTO predictions (
             name, model, result, age, sex, cp, trestbps, chol, fbs,
             restecg, thalach, exang, oldpeak, slope, ca, thal
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ''', (
         name, selected_model_name, result_text, age, sex, str(cp), trestbps, chol, fbs,
         str(restecg), thalach, exang, oldpeak, slope, ca, str(thal)
